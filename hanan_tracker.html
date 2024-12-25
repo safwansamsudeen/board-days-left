@@ -1,0 +1,111 @@
+<!doctype html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Days Left</title>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                font-family: "Poppins", sans-serif;
+            }
+
+            .container {
+                text-align: center;
+                padding: 60px 180px;
+                border-radius: 15px;
+                box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            }
+
+            #days {
+                font-size: 8rem;
+                font-weight: bold;
+                margin: 0;
+                animation: fadeIn 1s ease-in-out;
+                line-height: 1.2;
+            }
+
+            #subtitle {
+                font-size: 2rem;
+                margin: 20px 0 0 0;
+                animation: fadeIn 1s ease-in-out;
+                line-height: 1.2;
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
+
+            /* Responsive Design */
+            @media (max-width: 768px) {
+                .container {
+                    padding: 40px;
+                }
+
+                #days {
+                    font-size: 4rem;
+                }
+
+                #subtitle {
+                    font-size: 1.5rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1 id="days"></h1>
+            <h3 id="subtitle">days left.</h3>
+        </div>
+        <script>
+            const COLORS = [
+                "FAEDCB",
+                "C9E4DE",
+                "C6DEF1",
+                "DBCDF0",
+                "F2C6DE",
+                "F7D9C4",
+            ];
+            let color1 = COLORS[Math.floor(Math.random() * 6)];
+            let color2 = COLORS[Math.floor(Math.random() * 6)];
+            let color3 = COLORS[Math.floor(Math.random() * 6)];
+
+            document.body.style.background = `linear-gradient(135deg, #${color1}, #${color2})`;
+            document.querySelector(".container").style.background =
+                `#${color3}bb`;
+            document.querySelector(".container").style.border =
+                `2px solid #{color1}`;
+            let finalDate = new Date("2025-02-15").getTime();
+            let now = new Date();
+            now.setHours(0, 0, 0, 0);
+
+            const DAYS = Math.floor(
+                (finalDate - now.getTime()) / (1000 * 60 * 60 * 24),
+            );
+            function printDays(days) {
+                if (days === DAYS) return;
+                if (days === 1)
+                    document.getElementById("subtitle").innerHTML = "day left.";
+                else
+                    document.getElementById("subtitle").innerHTML =
+                        "days left.";
+                setTimeout(() => {
+                    document.getElementById("days").innerHTML = days;
+                    printDays(days + 1);
+                }, 10);
+            }
+            printDays(0);
+        </script>
+    </body>
+</html>
